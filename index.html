@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.0/css/all.min.css">
 
-    <title>Layer7 - DSTAT</title>
+    <title>Layer4 - DSTAT</title>
     <style>
       html,
       body {
@@ -177,16 +177,14 @@
                 index++;
         }
 
-              // Format the number to two decimal places if it's not a whole number, otherwise no decimals
               return kbs.toFixed(2).replace(/\.00$/, '') + " " + units[index];
           }
 
           function getYAxisUnit(data) {
-              let maxData = Math.max(...data); // Lấy giá trị lớn nhất từ dữ liệu
+              let maxData = Math.max(...data); 
               let units = ["KB", "MB", "GB", "TB"];
               let unitIndex = 0;
 
-              // Chuyển đổi maxData đến khi tìm ra đơn vị phù hợp
               while (maxData >= 1024 && unitIndex < units.length - 1) {
                   maxData /= 1024;
                   unitIndex++;
@@ -195,7 +193,17 @@
               return units[unitIndex];
           }
 
-
+          function formatYAxisLabel(value) {
+              if (value < 1024) {
+                  return value + ' Kb/s';
+              } else if (value < 1024 * 1024) {
+                  return (value / 1024).toFixed(2) + ' MB/s';
+              } else if (value < 1024 * 1024 * 1024) {
+                  return (value / (1024 * 1024)).toFixed(2) + ' GB/s';
+              } else {
+                  return (value / (1024 * 1024 * 1024)).toFixed(2) + ' TB/s';
+              }
+          }
 
         document.getElementById('left-container').querySelector('.data').textContent = formatNumber(Math.round(averageRequests));
         document.getElementById('center-container').querySelector('.data').textContent = formatNumber(peakRequests);
@@ -250,12 +258,12 @@
           },
           yAxis: {
               title: {
-                  text: '',
+                  text: 'Băng thông',
               },
               labels: {
                   style: { color: '#FFFFFF' },
-                  formatter: function() {
-                      return this.value +" "+ yAxisUnit;
+                  formatter: function () {
+                      return formatYAxisLabel(this.value);
                   }
               },
               gridLineWidth: 1,
