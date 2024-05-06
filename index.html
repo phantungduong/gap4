@@ -258,7 +258,7 @@
           },
           yAxis: {
               title: {
-                  text: 'Băng thông',
+                  text: '',
               },
               labels: {
                   style: { color: '#FFFFFF' },
@@ -272,8 +272,10 @@
           series: [{
             name: 'Incoming Bandwidth (Bypassed)',
             data: data,
-            color: '#96373f', 
-            lineColor: '#B8526C',   
+            color: 'rgba(102, 158, 84, 0.2)',
+            lineColor: '#61C478',   
+            lineWidth: 3,
+            step: 'left', 
             animation: false,
           }],
           legend: {
