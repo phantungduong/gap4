@@ -176,17 +176,20 @@
                 kbs /= 1024;
                 index++;
         }
-        function formatNumber2(kbs) {
-            let units = ["KB", "MB", "GB", "TB"]; 
-            let index = 0; 
-
-            while (kbs >= 1024 && index < units.length - 1) {
-                kbs /= 1024;
-                index++;
-        }
-
               return kbs.toFixed(2).replace(/\.00$/, '') + " " + units[index];
           }
+
+          function formatNumber2(kbs) {
+              let units = ["KB", "MB", "GB", "TB"]; 
+              let index = 0; 
+
+              while (kbs >= 1024 && index < units.length - 1) {
+                  kbs /= 1024;
+                  index++;
+          }
+              return kbs.toFixed(2).replace(/\.00$/, '') + " " + units[index];
+          }
+        
 
           function getYAxisUnit(data) {
               let maxData = Math.max(...data); 
